@@ -1,0 +1,124 @@
+
+<div class="center-container">
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="mt-4">
+  <label for="customerName">Customer Name:</label>
+  <input type="text" id="customerName" formControlName="customerName" class="form-control">
+
+  <label for="expenseHead">Expense Head:</label>
+  <input type="text" id="expenseHead" formControlName="expenseHead" class="form-control">
+
+  <label for="expenseCategory">Expense Category:</label>
+  <input type="text" id="expenseCategory" formControlName="expenseCategory" class="form-control">
+
+  <label for="expenseAmount">Expense Amount (in Rupees):</label>
+  <input type="number" id="expenseAmount" formControlName="expenseAmount" class="form-control">
+
+  <label for="dateAndTime">Date and Time:</label>
+  <input type="datetime-local" id="dateAndTime" formControlName="dateAndTime" class="form-control">
+
+  <label for="attachment">Attachment:</label>
+  <input type="file" id="attachment" formControlName="attachment">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button color="accent">Submit</button>
+    <button mat-raised-button color="accent" (click)="onReset()">Reset</button>
+
+  </div>
+</form>
+
+</div>
+
+
+<!--<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="mt-4">-->
+<!--  <div class="form-group">-->
+<!--    <label for="customerName">Customer Name:</label>-->
+<!--    <input type="text" id="customerName" formControlName="customerName" class="form-control">-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label for="expenseHead">Expense Head:</label>-->
+<!--    <select id="expenseHead" formControlName="expenseHead" class="form-control">-->
+<!--      <option value="h1">Expense Head</option>-->
+<!--      <option value="h2">Expense Head 1</option>-->
+<!--      <option value="h3">Expense Head 2</option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label for="expenseCategory">Expense Category:</label>-->
+<!--    <select id="expenseCategory" formControlName="expenseCategory" class="form-control">-->
+<!--      <option value="c1">Leave</option>-->
+<!--      <option value="c2">Medical leave</option>-->
+<!--      <option value="c3">Vacation leave</option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label for="expenseAmount">Expense Amount (in Rupees):</label>-->
+<!--    <input type="number" id="expenseAmount" formControlName="expenseAmount" class="form-control">-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label for="dateAndTime">Date and Time:</label>-->
+<!--    <input type="datetime-local" id="dateAndTime" formControlName="dateAndTime" class="form-control">-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label for="attachment">Attachment:</label>-->
+<!--    <input type="file" id="attachment" formControlName="attachment" class="form-control-file">-->
+<!--  </div>-->
+
+<!--  <button mat-raised-button color="accent" >Submit</button>-->
+<!--</form>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Display expenses in a table -->
+<div *ngIf="expenses.length > 0">
+  <table mat-table [dataSource]="expenses" class="mat-elevation-z8">
+
+    <!-- Name column -->
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.customerName }} </td>
+    </ng-container>
+    <!-- Head column -->
+    <ng-container matColumnDef="expenseHead">
+      <th mat-header-cell *matHeaderCellDef> Expense Head </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.expenseHead }} </td>
+    </ng-container>
+    <!-- Category column -->
+    <ng-container matColumnDef="expenseCategory">
+      <th mat-header-cell *matHeaderCellDef> Expense Category </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.expenseCategory }} </td>
+    </ng-container>
+    <!-- Amount column -->
+    <ng-container matColumnDef="expenseAmount">
+      <th mat-header-cell *matHeaderCellDef> Expense Amount </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.expenseAmount }} </td>
+    </ng-container>
+    <!-- date and time column -->
+    <ng-container matColumnDef="dateAndTime">
+      <th mat-header-cell *matHeaderCellDef> Date and Time </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.dateAndTime | date: 'medium' }} </td>
+    </ng-container>
+    <!-- File column -->
+    <ng-container matColumnDef="attachment">
+      <th mat-header-cell *matHeaderCellDef> Attachment </th>
+      <td mat-cell *matCellDef="let expense">
+        <a *ngIf="expense.attachment" [href]="getAttachmentUrl(expense.attachment)" download>
+        Download
+      </a> </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

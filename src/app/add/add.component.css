@@ -1,0 +1,11 @@
+.mt-4{
+  width: 400px;
+}
+.center-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+label,button{
+  margin: 10px;
+}
